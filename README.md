@@ -1,18 +1,15 @@
-# Salesforce DX Project: Next Steps
+# 영화관 사이트 토이 프로젝트
 
-Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.
+세일즈포스로 만든 영화관 커뮤니티 사이트
 
-## How Do You Plan to Deploy Your Changes?
+## 개발기간
 
-Do you want to deploy a set of changes, or create a self-contained application? Choose a [development model](https://developer.salesforce.com/tools/vscode/en/user-guide/development-models).
+2023-08-01 ~ 2023-08-08
 
-## Configure Your Salesforce DX Project
+## Language
 
-The `sfdx-project.json` file contains useful configuration information for your project. See [Salesforce DX Project Configuration](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm) in the _Salesforce DX Developer Guide_ for details about this file.
+LWC, APEX
 
 ## Read All About It
 
-- [Salesforce Extensions Documentation](https://developer.salesforce.com/tools/vscode/)
-- [Salesforce CLI Setup Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm)
-- [Salesforce DX Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_intro.htm)
-- [Salesforce CLI Command Reference](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference.htm)
+...
