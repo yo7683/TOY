@@ -1,0 +1,16 @@
+<template>
+    <article class="slds-card custom-card">
+
+        <div class="slds-m-left_xx-small custom-div">
+            <lightning-input class="custom-input" type="email" label="이메일" name="username" placeholder="이메일을 입력하세요" onchange={onIdChange}></lightning-input>
+            <lightning-input class="custom-input" type="password" label="비밀번호" name="password" placeholder="Password를 입력하세요" onchange={onPasswordChange}></lightning-input>
+        </div>
+
+        <div class="slds-m-top_medium slds-m-left_xx-small">
+            <lightning-button label="LogIn" title="Non-primary action" onclick={logInClick}  class="slds-m-top_medium"></lightning-button>
+            <lightning-button label="SignUp" title="Non-primary action" onclick={signUpClick} class="slds-m-top_medium"></lightning-button>
+        </div>
+
+    </article>
+
+</template>

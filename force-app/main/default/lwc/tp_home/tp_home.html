@@ -1,0 +1,55 @@
+<template>
+    <div class="slds-grid slds-wrap slds-size_1-of-1 wrap">
+        <div class="slds-grid slds-wrap slds-size_1-of-1 slds-p-around_small header-box">
+            <div class="slds-grid slds-wrap slds-size_1-of-2 slds-text-heading_medium">
+                <div class="slds-p-horizontal_small movie-chart" data-id="movie-chart" onclick={onHedaerClick}>박스오피스</div>
+                <div class="slds-p-horizontal_small soon-chart" data-id="soon-chart" onclick={onHedaerClick}>상영예정작</div>
+            </div>
+            <div class="slds-wrap slds-text-align_right slds-size_1-of-2">
+                <button class="slds-p-vertical_xx-small slds-p-horizontal_small slds-m-bottom_x-small view-all-btn" onclick={onViewAllClick}>전체보기 ></button>
+            </div>
+        </div>
+        <template if:true={isMovieChart}>
+            <div class="slds-grid slds-size_1-of-1 slds-text-heading_medium slds-p-around_small chart-box">
+                <div class="slds-grid slds-size_1-of-1 slds-text-heading_medium slds-p-around_small slider-box">
+                    <template for:each={movieList} for:item="movie" for:index="index">
+                        <div key={movie.id} data-id={movie.id} class="slds-wrap slds-size_1-of-5 slds-p-around_small">
+                            <div class="slds-size_1-of-1 img-box">
+                                <img src={movie.img}>
+                            </div>
+                            <div class="slds-grid slds-wrap slds-p-top_x-small slds-align_absolute-center slds-size_1-of-1 movie-title">
+                                {movie.name}
+                            </div>
+                            <div class="slds-grid slds-wrap slds-size_1-of-1 slds-p-vertical_x-small slds-align_absolute-center movie-chart_btn-box">
+                                <lightning-button variant="brand" label="상세보기" data-id={movie.id} onclick={onDetailClick} class="slds-m-left_x-small slds-text-heading_small"></lightning-button>
+                                <lightning-button variant="Netural" label="예매하기" data-id={movie.id} onclick={onReserveClick} class="slds-m-left_x-small slds-text-heading_small"></lightning-button>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </template>
+        <template if:true={isSoonChart}>
+            <div class="slds-grid slds-wrap slds-size_1-of-1 slds-text-heading_medium slds-p-around_small slds-m-top_small slds-align_absolute-center chart-box">
+                <div class="slds-grid slds-size_1-of-1 slds-text-heading_medium slds-p-around_small slider-box">
+                    <template for:each={soonList} for:item="soon" for:index="index">
+                        <div key={soon.Id} data-id={soon.id} class="slds-wrap slds-size_1-of-5 slds-p-around_small">
+                            <div class="slds-size_1-of-1 img-box">
+                                <img src={soon.img}>
+                            </div>
+                            <div class="slds-grid slds-wrap slds-p-top_x-small slds-align_absolute-center slds-size_1-of-1 movie-title">
+                                {soon.name}
+                            </div>
+                            <div class="slds-grid slds-wrap slds-size_1-of-1 slds-p-vertical_x-small slds-align_absolute-center movie-chart_btn-box">
+                                <lightning-button variant="brand" label="상세보기" data-id={soon.id} onclick={onDetailClick} class="slds-m-left_x-small slds-text-heading_small"></lightning-button>
+                                <lightning-button variant="Netural" label="예매하기" data-id={soon.id} onclick={onReserveClick} class="slds-m-left_x-small slds-text-heading_small"></lightning-button>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </template>
+        <button class="slds-text-heading_medium slider-btn back" onclick={onBackClick}>{backBtn}</button>
+        <button class="slds-text-heading_medium slider-btn next" onclick={onNextClick}>></button>
+    </div>
+</template>

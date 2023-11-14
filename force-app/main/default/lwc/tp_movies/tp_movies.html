@@ -1,0 +1,37 @@
+<template>
+    <div class="slds-grid slds-wrap slds-size_1-of-1">
+        <div class="slds-grid slds-wrap slds-size_1-of-1 header-box">
+            <div class="slds-size_1-of-2 slds-p-around_small slds-align_absolute-center slds-text-heading_medium title-box-office pointer" data-id="box-office" onclick={onHeaderClick}>박스오피스</div>
+            <div class="slds-size_1-of-2 slds-p-around_small slds-align_absolute-center slds-text-heading_medium title-soon pointer" data-id="soon" onclick={onHeaderClick}>상영예정작</div>
+        </div>
+        <div class="slds-grid slds-wrap slds-size_1-of-1 contents-box">
+            <div class="slds-size_1-of-1 slds-p-around_small">
+                <template if:false={isSoon}>
+                    <input type="checkbox" id="checkbox" class="checkbox pointer" onclick={onChkClick}>
+                    <label for="checkbox" class="slds-p-around_xx-small pointer">현재 상영중인 영화만</label>
+                </template>
+            </div>
+            <template for:each={movieList} for:item="movie" for:index="index">
+                <div key={movie.id} class="slds-grid slds-wrap slds-size_1-of-4 slds-p-horizontal_xx-large slds-p-vertical_large">
+                    <div class="slds-size_1-of-1 img-box" data-id={movie.id} onmouseover={onMouseOver} onmouseout={onMouseOut}>
+                        <img data-id={movie.id} src={movie.img}>
+                        <button class="slds-size_1-of-2 slds-p-vertical_xx-small slds-p-horizontal_large" data-id={movie.id} onclick={onDetailClick}>상세보기</button>
+                    </div>
+                    <div class="slds-size_1-of-1 slds-p-vertical_x-small slds-text-heading_small movie-title">{movie.name}</div>
+                    <div class="slds-p-right_x-small reserve">예매율 {movie.reserve}%</div>
+                    <div class="slds-p-left_x-small">개봉일 {movie.opening}</div>
+                    <div class="slds-size_1-of-1 slds-m-top_xx-small">
+                        <button class="slds-size_1-of-1 slds-p-around_xx-small reserve-btn" data-id={movie.id} onclick={onReserveClick}>예매하기</button>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </div>
+    
+    <!-- 로딩 스피너 -->
+    <template if:true={isLoading}>
+        <div class="spinner">
+            <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+        </div>
+    </template>
+</template>

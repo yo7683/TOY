@@ -1,0 +1,14 @@
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* 원하는 여백 값 추가 */
+}
+
+.custom-button {
+    background-color: #0070D2;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+}

@@ -1,0 +1,24 @@
+/* wrap */
+.wrap { border-radius: 10px; box-shadow: 2px 4px 12px lightgray; }
+
+/* header-box */
+.header-box { border-bottom: solid 1px lightgray; }
+.state-badge { border-radius: 5px; padding: 2px; font-weight: bold; }
+.badge-showing { border: solid 2px skyblue; color: skyblue; }
+.badge-soon { border: solid 2px gray; color: gray; }
+.movie-name { font-weight: bold; }
+.score-box { border-bottom: solid 1px lightgray; color: gray; }
+.info { font-weight: bold; }
+
+/* contents-box */
+.contents-box { border-bottom: solid 1px lightgray; }
+.contents { line-height: 3; font-weight: bold; }
+
+/* review-box */
+.review-header { font-weight: bold; }
+.review-contents { font-weight: bold; border-radius: 10px; box-shadow: 2px 4px 12px lightgray; }
+.user-alias { color: gray; }
+.review-date { color: gray; border-right: solid 2px lightgray; }
+
+/* img */
+img { border-radius: 10px; box-shadow: 2px 4px 12px lightgray; width: 100%; height: 100%; }

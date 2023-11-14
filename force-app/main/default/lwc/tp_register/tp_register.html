@@ -1,0 +1,43 @@
+<template>
+    <lightning-card title="회원 가입" class="slds-m-left_xx-small">
+        <div class="slds-p-around_medium">
+            <!-- <lightning-input type="text" label="유저네임" name="username" placeholder="유저 네임을 입력하세요" onchange={onIdChange}></lightning-input> -->
+            <lightning-input type="text" label="firstName" name="firstName" placeholder="First Name" onchange={onFirstnameChange}></lightning-input>
+            <lightning-input type="text" label="LastName" name="Lastname" placeholder="Last Name" onchange={onLastnameChange}></lightning-input>
+            <lightning-input type="text" label="닉네임 설정하세요" name="nickName" placeholder="닉네임 쓰세요" onchange={onAliasChange}></lightning-input>
+            <lightning-input type="text" label="이메일" name="email" placeholder="이메일 형식에 맞줘주세요" onchange={onEmailChange}></lightning-input>
+        </div>
+
+        <div class="slds-col">
+            <div class="button-container">
+                <button type="submit" class="custom-button" onclick={handleRegister}>Sign Up</button>
+            </div>
+        </div>
+        
+    </lightning-card>
+
+    <template if:true={isModalOpen}>
+    
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+            <!-- <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse">
+                <span class="slds-assistive-text">Cancel and close</span>
+            </button> -->
+            <div class="slds-modal__header">
+                <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Modal header</h1>
+            </div>
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                <p>회원가입을 축하합니다 등록한 이메일로 메일이 전송되니 확인하세요.</p>
+            </div>
+            <div class="slds-modal__footer">
+                <button class="slds-button slds-button_neutral" onclick={closeModal} title="Cancel">Cancel</button>
+                <button class="slds-button slds-button_brand" onclick={navigateToRegisterPage} title="OK">Ok</button>
+            </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+    </template>
+
+
+
+</template>

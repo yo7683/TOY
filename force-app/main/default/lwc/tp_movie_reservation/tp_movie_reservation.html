@@ -1,0 +1,157 @@
+<template>
+    
+    <!-- <lightning-card>
+        <div class="slds-p-around_none">
+            <h3 class="slds-text-heading_medium"><lightning-icon icon-name="custom:custom21" size="small"></lightning-icon> <strong style="color:#270086; font-size:13px;"> Create Vertical Navigation in Lightning Web Component (LWC) </strong></h3>
+            <br/>
+        </div>
+    </lightning-card>  -->
+    <div class="slds-grid slds-wrap slds-size_1-of-1 slds-p-around_medium wrap">
+        <div class="slds-grid slds-wrap slds-size_1-of-4 slds-p-around_x-small step-wrap">
+            <div class="slds-size_1-of-1 slds-p-around_x-small header">영화</div>
+            <div class="slds-size_1-of-1 slds-p-around_x-small p-box">
+                <div class="slds-grid slds-wrap slds-size_1-of-1 btn-wrap">
+                    <template for:each={movieName} for:item="item" for:index="index">
+                            <!-- <div key={item.Id} class="slds-size_1-of-1" onclick={buttonClick}>{item.md_Movie__r.Name}</div> -->
+                        <button key={item.Id} data-id={item.Id} data-name={item.Name} data-amount={item.Amounts__c} class="slds-size_1-of-1 list-btn" onclick={onMovieClick}>{item.Name}</button>
+                    </template>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slds-grid slds-wrap slds-size_1-of-4 slds-p-around_x-small step-wrap">
+            <div class="slds-size_1-of-1 slds-p-around_x-small header">극장</div>
+            <div class="slds-size_1-of-1 slds-p-around_x-small p-box">
+                <div class="slds-grid slds-wrap slds-size_1-of-1 btn-wrap">
+                    <template for:each={movieTheater} for:item="item" for:index="index">
+                        <!-- <div key={item.Id} class="slds-size_1-of-1">{item.md_Theater__r.Name}</div> -->
+                        <button key={item.Id} data-id={item.Id} class="slds-size_1-of-1 list-btn" onclick={onTheaterClick}>{item.Name}</button>
+                    </template>
+                </div>
+            </div>
+        </div>
+
+        <div class="slds-grid slds-wrap slds-size_1-of-4 slds-p-around_x-small step-wrap">
+            <div class="slds-size_1-of-1 slds-p-around_x-small header">날짜</div>
+            <div class="slds-size_1-of-1 slds-p-around_x-small p-box">
+                <div class="slds-grid slds-wrap slds-size_1-of-1 btn-wrap">
+                    <template for:each={movieTime} for:item="item" for:index="index">
+                        <!-- <div key={item.Id} class="slds-size_1-of-1">{item.md_Theater__r.Name}</div> -->
+                        <button key={item.Id} data-id={item.ShowDate__c} class="slds-size_1-of-1 list-btn" onclick={dateClick}>{item.ShowDate__c}</button>
+                    </template>
+                </div>
+            </div>
+        </div>
+
+        <div class="slds-grid slds-wrap slds-size_1-of-4 slds-p-around_x-small step-wrap">
+            <div class="slds-size_1-of-1 slds-p-around_x-small header">시간</div>
+            <div class="slds-size_1-of-1 slds-p-around_x-small p-box">
+                <div class="slds-grid slds-wrap slds-size_1-of-1 btn-wrap">
+                    <template for:each={movieClock} for:item="item" for:index="index">
+                        <!-- <div key={item.Id} class="slds-size_1-of-1">{item.md_Theater__r.Name}</div> -->
+                        <button key={item.id} data-id={item.id} class="slds-size_1-of-1 list-btn" onclick={onSeatBatch}>{item.time}</button>
+                    </template>
+                </div>
+            </div>
+        </div>
+
+
+        
+        
+    </div>
+
+
+    <div class="slds-wrap slds-col slds-size_1-of-1 slds-p-around_medium seat-wrap">
+        <div class="slds-size_1-of-1 slds-text-heading_medium slds-p-around_x-small header">좌석</div>
+        <div class="slds-grid slds-wrap slds-size_1-of-1 slds-p-around_medium">
+            <template for:each={seatArray} for:item="row">
+                <div class="slds-grid slds-wrap slds-size_1-of-1" key={row.rw}>
+                    <template for:each={row.seats} for:item="seat">
+                        <template if:false={seat.isReserved}>
+                            <template if:true={seat.isSelected}>
+                                <button key={seat.label} class="seat seat-selected" onclick={onSeatNumber} data-id={seat.id}>
+                                    {seat.label}
+                                </button>
+                            </template>
+                            <template if:false={seat.isSelected}>
+                                <button key={seat.label} class="seat seat-non-selected" onclick={onSeatNumber} data-id={seat.id}>
+                                {seat.label}
+                                </button>
+                            </template>
+                        </template>
+                        <template if:true={seat.isReserved}>
+                            <button key={seat.label} class="seat seat-disabled" onclick={onSeatNumber} data-id={seat.id} disabled>X</button>
+                        </template>
+                    </template>
+                </div>
+            </template>
+        </div>
+        <template if:true={isReservedButton}>
+            <lightning-button variant="brand" label="예약하기" onclick={doReserveClick} class="slds-p-around_medium"></lightning-button>
+        </template>
+    </div>
+    
+
+
+    <template if:true={isShowModal}>
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container" style="font-weight: bold;">
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={onCloseModalClick}>
+                    <lightning-icon icon-name="utility:close"
+                        alternative-text="close"
+                        variant="inverse"
+                        size="small">
+                    </lightning-icon>
+                    <div class="slds-assistive-text">Close</div>
+                </button>
+                <div class="slds-modal__header">
+                    <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">예매 정보 확인</h1>
+                </div>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    선택한 영화 : {selectMovie}
+                    <br>
+                    선택한 좌석 : {selectedSeat}
+                    <br>
+                    총 예상 금액 : {totalAmounts}원
+                </div>
+                <div class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" aria-label="Cancel and close" onclick={onCloseModalClick}>취소</button>
+                    <button class="slds-button slds-button_brand" onclick={onReserveClick}>예매</button>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+    </template>
+
+    <template if:true={isReserveInfoModal}>
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container" style="font-weight: bold;">
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={onClosInfoClick}>
+                    <lightning-icon icon-name="utility:close"
+                        alternative-text="close"
+                        variant="inverse"
+                        size="small">
+                    </lightning-icon>
+                    <div class="slds-assistive-text">Close</div>
+                </button>
+                <div class="slds-modal__header">
+                    <h1 id="modal-heading-02" class="slds-modal__title slds-hyphenate">예매 성공</h1>
+                </div>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+                    예매가 완료됐습니다.
+                </div>
+                <div class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" aria-label="Cancel and close" onclick={onClosInfoClick}>취소</button>
+                    <button class="slds-button slds-button_brand" onclick={onHomeClick}>Home</button>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+    </template>
+
+    <div id="payment-method"></div>
+
+
+        
+
+</template>

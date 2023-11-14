@@ -1,0 +1,112 @@
+<template>
+    <div class="slds-grid slds-wrap slds-p-horizontal_xx-large slds-size_1-of-1 wrap">
+        <div class="slds-grid slds-wrap slds-p-around_xx-large slds-size_1-of-1 header-box">
+            <div class="slds-size_1-of-5 img-box">
+                <img src={cd.ContentDownloadUrl}>
+            </div>
+            <div class="slds-size_4-of-5 slds-p-left_x-large slds-p-top_small slds-p-bottom_large info-box">
+                <div class="slds-grid slds-size_1-of-1 slds-text-heading_x-small slds-p-bottom_xx-small">
+                    <div class="state-badge">{showingState}</div>
+                </div>
+                <div class="slds-size_1-of-1 slds-text-heading_medium movie-name">{movie.name}</div>
+                <div class="slds-grid slds-p-vertical_small slds-size_1-of-1 score-box">
+                    <div class="slds-p-right_x-small" style="border-right: solid gray;">예매율 {movie.ReservationRate__c}%</div>
+                    <div class="slds-p-left_x-small">평점/리뷰 {ratingAvg}({reviewCnt})</div>
+                </div>
+                <div class="slds-grid slds-wrap slds-p-vertical_large slds-size_1-of-1 info">
+                    <div class="slds-size_1-of-1">감독 : {movie.Director__c}</div>
+                    <div class="slds-size_1-of-1">배우 : {movie.Actor__c}</div>
+                    <div class="slds-size_1-of-1">장르 : {movie.Type__c}</div>
+                    <div class="slds-size_1-of-1">기본정보 : {movie.BasicInfo__c}</div>
+                    <div class="slds-size_1-of-1">개봉 : {movie.Movie_OpeningDate__c}</div>
+                </div>
+                <div class="slds-size_1-of-1 btn-box">
+                    <lightning-button variant="brand" label="예매하기" onclick={onReserveClick} class="slds-text-heading_small"></lightning-button>
+                </div>
+            </div>
+        </div>
+        <div class="slds-grid slds-wrap slds-p-around_xx-large slds-size_1-of-1 contents-box">
+            <lightning-formatted-rich-text class="slds-size_1-of-1 slds-text-heading_x-small contents" value={contents}></lightning-formatted-rich-text>
+        </div>
+        <div class="slds-grid slds-wrap slds-size_1-of-1 slds-p-around_xx-large review-box">
+            <div class="slds-size_1-of-2 slds-p-bottom_large slds-text-heading_medium review-header">평점/리뷰</div>
+            <div class="slds-size_1-of-2 slds-text-align_right">
+                <lightning-button variant="brand" label="리뷰작성" onclick={onReviewWriteClick} class="slds-text-heading_small"></lightning-button>
+            </div>
+            <template for:each={reviewList} for:item="rv" for:index="index">
+                <div key={rv.Id} class="slds-grid slds-wrap slds-size_1-of-1 slds-p-around_medium slds-m-bottom_small review-contents">
+                    <div class="slds-size_1-of-1 user-alias">{rv.alias}</div>
+                    <div class="slds-size_1-of-1">{rv.rvContents}</div>
+                    <div class="slds-p-right_x-small slds-m-top_xx-small review-date">{rv.date}</div>
+                    <div class="slds-p-left_x-small slds-m-top_xx-small score">👍 {rv.rating}</div>
+                </div>
+            </template>
+        </div>
+    </div>
+    
+    <!-- 로딩 스피너 -->
+    <template if:true={isLoading}>
+        <div class="spinner">
+            <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+        </div>
+    </template>
+    
+    <!-- 모달 시작 -->
+    <template if:true={isShowModal}>
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container" style="font-weight: bold;">
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={onCloseModalClick}>
+                    <lightning-icon icon-name="utility:close"
+                        alternative-text="close"
+                        variant="inverse"
+                        size="small">
+                    </lightning-icon>
+                    <span class="slds-assistive-text">Close</span>
+                </button>
+                <template if:true={isReserveChk}>
+                    <div class="slds-modal__header">
+                        <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">실관람객 리뷰</h1>
+                    </div>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        실관람객만 가능한 서비스입니다.
+                        <br>
+                        영화 예매 페이지로 이동하시겠습니까 ?
+                    </div>
+                    <div class="slds-modal__footer">
+                        <button class="slds-button slds-button_neutral" aria-label="Cancel and close" onclick={onCloseModalClick}>취소</button>
+                        <button class="slds-button slds-button_brand" onclick={onReserveClick}>예매</button>
+                    </div>
+                </template>
+                <template if:true={isNonLoginModal}>
+                    <div class="slds-modal__header">
+                        <h1 id="modal-heading-02" class="slds-modal__title slds-hyphenate">로그인 필요</h1>
+                    </div>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+                        로그인이 필요한 서비스입니다.
+                        <br>
+                        로그인 페이지로 이동하시겠습니까 ?
+                    </div>
+                    <div class="slds-modal__footer">
+                        <button class="slds-button slds-button_neutral" aria-label="Cancel and close" onclick={onCloseModalClick}>취소</button>
+                        <button class="slds-button slds-button_brand" onclick={onLoginClick}>로그인</button>
+                    </div>
+                </template>
+                <template if:true={isLoginUserModal}>
+                    <div class="slds-modal__header">
+                        <h1 id="modal-heading-03" class="slds-modal__title slds-hyphenate">리뷰 작성</h1>
+                    </div>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-3">
+                        <lightning-textarea class="textarea" label="리뷰" placeholder="여기에 내용을 입력해주세요 ~~" value={reviewValue}></lightning-textarea>
+                        <lightning-slider class="slider" label="평점" step="1" min="0" max="10" value={sliderValue}></lightning-slider>
+                    </div>
+                    <div class="slds-modal__footer">
+                        <button class="slds-button slds-button_neutral" aria-label="Cancel and close" onclick={onCloseModalClick}>취소</button>
+                        <button class="slds-button slds-button_brand" onclick={onSaveClick}>저장</button>
+                    </div>
+                </template>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+    </template>
+    <!-- 모달 끝 -->
+</template>

@@ -1,0 +1,112 @@
+.wrap {
+    border: 1px solid lightgray;
+    height: 400px;
+}
+
+.step-wrap {
+    height: 100%;
+}
+
+.header {
+    font-weight: bold;
+    border-bottom: 1px solid lightgray;
+    padding-top: 0;
+}
+
+.p-box {
+    height:90%;
+}
+
+.btn-wrap {
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 100%;
+    align-content: start;
+}
+
+.btn-wrap::-webkit-scrollbar {
+    width: 5px;
+}
+
+.btn-wrap::-webkit-scrollbar-thumb {
+    background: gray;
+    border-radius: 10px;
+}
+
+.btn-wrap::-webkit-scrollbar-track {
+    background: lightgray;
+    border-radius: 10px;
+}
+
+.list-btn {
+    border: 0;
+    border-radius: 5px;
+    background-color: white;
+    padding: 5px;
+    text-align: left;
+}
+
+.active {
+    background-color: #000000CC;
+    color: white;
+    font-weight: bold;
+}
+
+.theater-active {
+    background-color: #000000CC;
+    color: white;
+    font-weight: bold;
+}
+
+.date-active {
+    background-color: #000000CC;
+    color: white;
+    font-weight: bold;
+}
+
+.time-active {
+    background-color: #000000CC;
+    color: white;
+    font-weight: bold;
+}
+
+/* seat */
+.seat-wrap {
+    border: solid 1px lightgray;
+    border-top: 0;
+}
+
+.seat-header {
+    font-weight: bold;
+    border-bottom: solid 1px lightgray;
+}
+
+.seat {
+    width: 40px;
+    height: 40px;
+    margin: 2px;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+.seat-selected {
+    background-color: #000000CC;
+    color: white;
+}
+
+.seat-non-selected {
+    background-color: white;
+    color: #000000CC;
+    transition: all 0.2s linear;
+    border: solid 2px gray;
+}
+
+.seat-non-selected:hover {
+    background-color: #000000CC;
+    color: white;
+}
+
+.seat-disabled {
+    background-color: lightgray;
+    color: white;
+}

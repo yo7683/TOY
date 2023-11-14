@@ -1,0 +1,22 @@
+/* wrap */
+.wrap { position: relative; }
+
+/* header-box */
+.header-box div:hover { cursor: pointer; }
+.movie-chart { border-right: 1px solid gray; font-weight: bold; }
+.soon-chart { color: gray; }
+.view-all-btn { background-color: white; border: solid 1px lightgray; border-radius: 15px; box-shadow: 0 0 2px lightgray; transition: all 0.2s linear; }
+.view-all-btn:hover { background-color: whitesmoke; }
+
+/* chart-box */
+.chart-box { border-radius: 10px; box-shadow: 2px 4px 12px lightgray; height: 100%; overflow-x: hidden; }
+.slider-box { height: 100%; transition: transform 0.5s; }
+.movie-title { font-weight: bold; }
+.movie-chart_btn-box { display: flex; }
+.slider-btn { position: absolute; top: 50%; width: 40px; height: 40px; opacity: 80%; border-radius: 50%; border: 0; background-color: white; box-shadow: 2px 4px 12px lightgray; transition: all 0.2s linear; }
+.slider-btn:hover { opacity: 100%; }
+.slider-btn.back { display: none; left: -20px; }
+.slider-btn.next{ right: -20px; }
+
+/* img */
+img { border-radius: 10px; box-shadow: 2px 4px 12px lightgray; width: 100%; height: 100%; }
